@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "296522544686",
+    "project_id": "kiemtra-2351060461",
+    "storage_bucket": "kiemtra-2351060461.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296522544686:android:78c2b09bc3ac16180751bf",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app_2351060461"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx8oAF1vkE96wZNsI89izoZnsIMRjeSgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296522544686:android:2da4b098b4d7fca10751bf",
+        "android_client_info": {
+          "package_name": "com.example.msv2351060461"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx8oAF1vkE96wZNsI89izoZnsIMRjeSgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
