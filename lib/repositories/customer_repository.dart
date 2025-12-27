@@ -10,6 +10,19 @@ class CustomerRepository {
     return _customerCollection.add(customer.toMap());
   }
 
+  // Phương thức mới để tìm khách hàng bằng email
+  Future<Customer?> getCustomerByEmail(String email) async {
+    final querySnapshot = await _customerCollection
+        .where('email', isEqualTo: email)
+        .limit(1)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      return Customer.fromDocument(querySnapshot.docs.first);
+    }
+    return null;
+  }
+
   Future<Customer?> getCustomerById(String customerId) async {
     final doc = await _customerCollection.doc(customerId).get();
     if (doc.exists) {

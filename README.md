@@ -85,3 +85,20 @@
      flutter run
      ```
    - Ứng dụng sẽ khởi động ở màn hình Đăng nhập. Bạn có thể đăng ký một tài khoản mới hoặc đăng nhập bằng một email bất kỳ để bắt đầu.
+
+## Hướng Dẫn Nén và Nộp Bài (< 20MB)
+
+Thư mục dự án Flutter thường rất lớn do chứa các file build và file tạm. Để giảm kích thước khi nén file, bạn chỉ cần thực hiện một lệnh duy nhất.
+
+**1. Chạy `flutter clean`:**
+   - Mở terminal trong thư mục gốc của dự án.
+   - Chạy lệnh sau:
+     ```
+     flutter clean
+     ```
+   - Lệnh này sẽ xóa các thư mục `build`, `.dart_tool` và các file tạm khác.
+
+**2. Nén Thư Mục:**
+   - Sau khi lệnh `clean` chạy xong, hãy nén toàn bộ thư mục dự án của bạn lại thành file `.zip`. Kích thước file nén sẽ giảm đi đáng kể.
+
+**Lưu ý cho người nhận file:** Sau khi giải nén, cần phải chạy lệnh `flutter pub get` để tải lại các gói phụ thuộc trước khi có thể chạy dự án.

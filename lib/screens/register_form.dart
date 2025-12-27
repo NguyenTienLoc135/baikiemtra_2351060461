@@ -2,9 +2,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../models/customer_model.dart';
-import '../../repositories/customer_repository.dart';
-import '../home/home_screen.dart';
+import '../models/customer_model.dart';
+import '../repositories/customer_repository.dart';
+import 'home_screen.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -28,6 +28,19 @@ class _RegisterFormState extends State<RegisterForm> {
     if (_formKey.currentState!.validate()) {
       setState(() { _isLoading = true; });
       final email = _emailController.text;
+
+      // Kiểm tra xem email đã tồn tại chưa
+      final existingCustomer = await _customerRepository.getCustomerByEmail(email);
+      if (existingCustomer != null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Email này đã được sử dụng.')),
+          );
+          setState(() { _isLoading = false; });
+        }
+        return;
+      }
+
       final newCustomer = Customer(
         email: email,
         fullName: _fullNameController.text,
@@ -53,11 +66,8 @@ class _RegisterFormState extends State<RegisterForm> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Đăng ký thất bại: ${e.toString()}')),
             );
+            setState(() { _isLoading = false; });
          }
-      } finally {
-        if (mounted) {
-          setState(() { _isLoading = false; });
-        }
       }
     }
   }
@@ -74,7 +84,17 @@ class _RegisterFormState extends State<RegisterForm> {
             TextFormField(
               controller: _emailController,
               decoration: const InputDecoration(labelText: 'Email'),
-              validator: (value) => value == null || value.isEmpty ? 'Vui lòng nhập email' : null,
+              // Lỗi đã được sửa ở đây: Thêm xác thực định dạng email
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Vui lòng nhập email';
+                }
+                final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                if (!emailRegex.hasMatch(value)) {
+                  return 'Định dạng email không hợp lệ';
+                }
+                return null;
+              },
               keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 12),
@@ -87,7 +107,17 @@ class _RegisterFormState extends State<RegisterForm> {
             TextFormField(
               controller: _phoneController,
               decoration: const InputDecoration(labelText: 'Số điện thoại'),
-              validator: (value) => value == null || value.isEmpty ? 'Vui lòng nhập số điện thoại' : null,
+              // Lỗi đã được sửa ở đây: Thêm xác thực định dạng số điện thoại
+              validator: (value) {
+                 if (value == null || value.isEmpty) {
+                  return 'Vui lòng nhập số điện thoại';
+                }
+                final phoneRegex = RegExp(r'^(\+84|0)?[0-9]{9,10}$');
+                 if (!phoneRegex.hasMatch(value)) {
+                  return 'Định dạng số điện thoại không hợp lệ';
+                }
+                return null;
+              },
               keyboardType: TextInputType.phone,
             ),
             const SizedBox(height: 12),

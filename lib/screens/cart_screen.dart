@@ -1,9 +1,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart' hide Order;
 import 'package:flutter/material.dart';
-import '../../models/customer_model.dart';
-import '../../models/order_model.dart';
-import '../../repositories/order_repository.dart';
+import '../models/customer_model.dart';
+import '../models/order_model.dart';
+import '../repositories/order_repository.dart';
 
 class CartScreen extends StatefulWidget {
   final List<OrderItem> cartItems;
@@ -61,7 +61,12 @@ class _CartScreenState extends State<CartScreen> {
     );
 
     if (orderPlaced == true && mounted) {
-      Navigator.of(context).pop([]); // Pop CartScreen and return empty cart
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          // Lỗi đã được sửa ở đây: Chỉ định rõ kiểu dữ liệu trả về
+          Navigator.of(context).pop(<OrderItem>[]); 
+        }
+      });
     }
   }
 
@@ -192,7 +197,6 @@ class _CheckoutSheetState extends State<CheckoutSheet> {
       try {
         await _orderRepository.createOrder(newOrder);
         if (mounted) {
-          // Only pop the bottom sheet and return success signal
           Navigator.of(context).pop(true);
         }
       } catch (e) {

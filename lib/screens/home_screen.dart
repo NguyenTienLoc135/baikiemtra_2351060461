@@ -2,13 +2,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart' hide Order;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../models/customer_model.dart';
-import '../../models/order_model.dart';
-import '../../models/product_model.dart';
-import '../../repositories/product_repository.dart';
-import '../auth/login_form.dart';
-import '../cart/cart_screen.dart';
-import '../orders/order_list_screen.dart';
+import '../models/customer_model.dart';
+import '../models/order_model.dart';
+import '../models/product_model.dart';
+import '../repositories/product_repository.dart';
+import 'login_form.dart';
+import 'cart_screen.dart';
+import 'order_list_screen.dart';
 import 'product_detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'services/firebase_service.dart';
-import 'screens/auth/login_form.dart';
+import 'screens/login_form.dart';
 
 void main() async {
   await FirebaseService.initializeFirebase();
